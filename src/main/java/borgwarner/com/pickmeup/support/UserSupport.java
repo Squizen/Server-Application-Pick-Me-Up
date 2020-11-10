@@ -1,7 +1,12 @@
 package borgwarner.com.pickmeup.support;
 
-public class UserCreation {
+public class UserSupport {
 
+     /*
+        User support is supporting class for adding and updating user
+     */
+
+    private int id_user;
     private String serialNumber;
     private String user_name;
     private String user_surname;
@@ -12,11 +17,12 @@ public class UserCreation {
     private String user_description;
     private boolean is_active;
 
-    public UserCreation() {
+    public UserSupport() {
 
     }
 
-    public UserCreation(String serialNumber, String user_name, String user_surname, String user_email, String user_password, String user_phone_number, String user_car, String user_description, boolean is_active) {
+    public UserSupport(int id_user, String serialNumber, String user_name, String user_surname, String user_email, String user_password, String user_phone_number, String user_car, String user_description, boolean is_active) {
+        this.id_user = id_user;
         this.serialNumber = serialNumber;
         this.user_name = user_name;
         this.user_surname = user_surname;
@@ -98,5 +104,13 @@ public class UserCreation {
 
     public void setIs_active(boolean is_active) {
         this.is_active = is_active;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 }
