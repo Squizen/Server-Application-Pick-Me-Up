@@ -1,6 +1,7 @@
 package borgwarner.com.pickmeup.dao;
 
-import borgwarner.com.pickmeup.support.UserCreation;
+import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserSupport;
 import borgwarner.com.pickmeup.entity.User;
 import java.util.List;
 
@@ -14,5 +15,9 @@ public interface UserDAO {
 
     List<User> findAllInactiveUsers();
 
-    User addUserWithActivationCodeSerialNumber(UserCreation userCreation);
+    Response addUserWithActivationCodeSerialNumber(UserSupport userSupport);
+
+    Response deleteUserById(int theID);
+
+    Response updateUser(UserSupport userSupport);
 }

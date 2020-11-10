@@ -2,12 +2,11 @@ package borgwarner.com.pickmeup.restcontroller;
 
 import borgwarner.com.pickmeup.entity.User;
 import borgwarner.com.pickmeup.jsonhelper.View;
+import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserSupport;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import borgwarner.com.pickmeup.service.UserService;
 
 import java.util.List;
@@ -50,5 +49,19 @@ public class UserRestController {
     @JsonView(View.User.class)
     public List<User> findAllInactiveUsers(){
         return userService.findAllInactiveUsers();
+    }
+
+    @PostMapping("/user/addnew")
+    public Response addUserWithActivationCodeSerialNumber(@RequestBody UserSupport userSupport){
+        return userService.addUserWithActivationCodeSerialNumber(userSupport);
+    }
+    @DeleteMapping("/user/delete/{theID}")
+    public Response deleteUserById(@PathVariable int theID){
+        return userService.deleteUserById(theID);
+    }
+
+    @PutMapping("/user/update")
+    public Response updateUser(@RequestBody UserSupport userSupport){
+        return userService.updateUser(userSupport);
     }
 }
