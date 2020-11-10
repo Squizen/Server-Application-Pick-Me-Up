@@ -4,4 +4,5 @@ public interface View {
 
     interface User{}
     interface ActivationCode{}
+    interface OfferedRide{}
 }

@@ -20,18 +20,18 @@ public class ActivationCode {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_activation_code")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class})
     private int id_activation_code;
 
     @Column(name="serial_number")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class})
     private String serial_number;
 
     @OneToOne(mappedBy="activationCode", cascade= {CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,
             CascadeType.REFRESH })
-    @JsonView({View.ActivationCode.class})
+    @JsonView({View.ActivationCode.class, View.OfferedRide.class})
     private User user;
 
     public ActivationCode() {
