@@ -20,6 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private int id_user;
 
     @OneToOne(cascade = {CascadeType.DETACH,
@@ -31,27 +32,35 @@ public class User {
     private ActivationCode activationCode;
 
     @Column(name = "user_name")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_name;
 
     @Column(name = "user_surname")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_surname;
 
     @Column(name = "user_email")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_email;
 
     @Column(name = "user_password")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_password;
 
     @Column(name = "user_phone_number")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_phone_number;
 
     @Column(name = "user_car")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_car;
 
     @Column(name = "user_description")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String user_description;
 
     @Column(name = "is_active")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private boolean is_active;
 
     public User() {

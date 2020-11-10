@@ -6,5 +6,11 @@ import java.util.List;
 
 public interface UserService {
 
+    User findUserById(int theID);
+
     List<User> findAllUsers();
+
+    List<User> findAllActiveUsers();
+
+    List<User> findAllInactiveUsers();
 }

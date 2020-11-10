@@ -19,8 +19,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(int theID) {
+        return userDAO.findUserById(theID);
+    }
+
+    @Override
     @Transactional
     public List<User> findAllUsers() {
         return userDAO.findAllUsers();
+    }
+
+    @Override
+    @Transactional
+    public List<User> findAllActiveUsers() {
+        return userDAO.findAllActiveUsers();
+    }
+
+    @Override
+    @Transactional
+    public List<User> findAllInactiveUsers() {
+        return userDAO.findAllInactiveUsers();
     }
 }
