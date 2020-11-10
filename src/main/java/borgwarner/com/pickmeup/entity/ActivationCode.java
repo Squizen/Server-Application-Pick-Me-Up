@@ -1,5 +1,8 @@
 package borgwarner.com.pickmeup.entity;
 
+import borgwarner.com.pickmeup.jsonhelper.View;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,15 +20,18 @@ public class ActivationCode {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_activation_code")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private int id_activation_code;
 
     @Column(name="serial_number")
+    @JsonView({View.ActivationCode.class, View.User.class})
     private String serial_number;
 
     @OneToOne(mappedBy="activationCode", cascade= {CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,
             CascadeType.REFRESH })
+    @JsonView({View.ActivationCode.class})
     private User user;
 
     public ActivationCode() {
@@ -52,7 +58,14 @@ public class ActivationCode {
     public void setSerial_number(String serial_number) {
         this.serial_number = serial_number;
     }
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
