@@ -1,17 +1,12 @@
 package borgwarner.com.pickmeup.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import borgwarner.com.pickmeup.jsonhelper.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -20,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private int id_user;
 
     @OneToOne(cascade = {CascadeType.DETACH,
@@ -32,15 +27,15 @@ public class User {
     private ActivationCode activationCode;
 
     @Column(name = "user_name")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private String user_name;
 
     @Column(name = "user_surname")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private String user_surname;
 
     @Column(name = "user_email")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private String user_email;
 
     @Column(name = "user_password")
@@ -48,20 +43,37 @@ public class User {
     private String user_password;
 
     @Column(name = "user_phone_number")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private String user_phone_number;
 
     @Column(name = "user_car")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private String user_car;
 
     @Column(name = "user_description")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
     private String user_description;
 
     @Column(name = "is_active")
     @JsonView({View.ActivationCode.class, View.User.class})
     private boolean is_active;
+
+    @OneToMany(mappedBy="user",
+            cascade= {CascadeType.ALL})
+    @JsonView({View.User.class})
+    private List<OfferedRide> listOfUsersOfferedRides;
+
+    @OneToMany(mappedBy="user",
+            cascade= {CascadeType.ALL})
+    @JsonView({View.User.class})
+    private List<Seat> listOfUserSeats;
+
+    @OneToMany(mappedBy="user",
+            cascade= {CascadeType.ALL})
+    @JsonView({View.User.class})
+    private List<WantedRide> listOfWantedRides;
+
+
 
     public User() {
 
@@ -158,5 +170,24 @@ public class User {
 
     public void setIs_active(boolean is_active) {
         this.is_active = is_active;
+    }
+
+    public void addOfferedRide(OfferedRide offeredRide){
+        if(listOfUsersOfferedRides == null){
+            listOfUsersOfferedRides = new ArrayList<>();
+        }
+        listOfUsersOfferedRides.add(offeredRide);
+    }
+    public void addToListOfUserSeats(Seat seat){
+        if(listOfUserSeats == null){
+            listOfUserSeats = new ArrayList<>();
+        }
+        listOfUserSeats.add(seat);
+    }
+    public void addToListOfWantedRides(WantedRide wantedRide){
+        if(listOfWantedRides == null){
+            listOfWantedRides = new ArrayList<>();
+        }
+        listOfWantedRides.add(wantedRide);
     }
 }

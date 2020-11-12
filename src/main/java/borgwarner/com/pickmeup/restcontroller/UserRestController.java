@@ -59,9 +59,13 @@ public class UserRestController {
     public Response deleteUserById(@PathVariable int theID){
         return userService.deleteUserById(theID);
     }
-
     @PutMapping("/user/update")
     public Response updateUser(@RequestBody UserSupport userSupport){
         return userService.updateUser(userSupport);
+    }
+    @GetMapping("/login")
+    @JsonView(View.User.class)
+    public User loginToApplication(@RequestParam String email, @RequestParam String password){
+        return userService.loginToApplication(email, password);
     }
 }
