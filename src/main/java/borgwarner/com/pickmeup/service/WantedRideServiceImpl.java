@@ -2,6 +2,8 @@ package borgwarner.com.pickmeup.service;
 
 import borgwarner.com.pickmeup.dao.WantedRideDAO;
 import borgwarner.com.pickmeup.entity.WantedRide;
+import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.WantedRideSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +33,20 @@ public class WantedRideServiceImpl implements WantedRideService {
     }
 
     @Override
+    @Transactional
     public List<WantedRide> findWantedRidesOfSpecificUser(int theID) {
         return wantedRideDAO.findWantedRidesOfSpecificUser(theID);
+    }
+
+    @Override
+    @Transactional
+    public Response addNewWantedRide(WantedRideSupport wantedRideSupport) {
+        return wantedRideDAO.addNewWantedRide(wantedRideSupport);
+    }
+
+    @Override
+    @Transactional
+    public Response updateWantedRide(WantedRideSupport wantedRideSupport) {
+        return wantedRideDAO.updateWantedRide(wantedRideSupport);
     }
 }

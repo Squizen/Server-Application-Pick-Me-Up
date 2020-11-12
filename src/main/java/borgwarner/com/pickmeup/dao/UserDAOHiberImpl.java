@@ -107,9 +107,9 @@ public class UserDAOHiberImpl implements UserDAO {
             return response;
         }
         if(user != null){
-            Query query = session.createQuery("DELETE FROM User user WHERE user.id_user = " + theID);
-            query.executeUpdate();
-//            session.remove(user);
+            user.getActivationCode().setUser(null);
+            user.setActivationCode(null);
+            session.remove(user);
             response.setSuccesful(true);
             response.setMsg("User with ID " + theID + " successfully deleted");
         } else {

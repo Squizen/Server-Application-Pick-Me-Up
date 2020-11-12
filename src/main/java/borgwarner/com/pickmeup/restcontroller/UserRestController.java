@@ -63,6 +63,7 @@ public class UserRestController {
     public Response updateUser(@RequestBody UserSupport userSupport){
         return userService.updateUser(userSupport);
     }
+
     @GetMapping("/login")
     @JsonView(View.User.class)
     public User loginToApplication(@RequestParam String email, @RequestParam String password){

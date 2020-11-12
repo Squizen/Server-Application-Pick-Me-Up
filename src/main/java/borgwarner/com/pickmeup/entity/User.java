@@ -21,6 +21,7 @@ public class User {
     @OneToOne(cascade = {CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,
+            CascadeType.REMOVE,
             CascadeType.REFRESH})
     @JoinColumn(name = "id_activation_code")
     @JsonView({View.User.class})

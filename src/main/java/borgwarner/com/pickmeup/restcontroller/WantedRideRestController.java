@@ -3,12 +3,12 @@ package borgwarner.com.pickmeup.restcontroller;
 import borgwarner.com.pickmeup.entity.WantedRide;
 import borgwarner.com.pickmeup.jsonhelper.View;
 import borgwarner.com.pickmeup.service.WantedRideService;
+import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.WantedRideSupport;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,4 +34,21 @@ public class WantedRideRestController {
     public WantedRide findWantedRideByID(@PathVariable int theID){
         return wantedRideService.findWantedRideByID(theID);
     }
+
+    @GetMapping("/wanted_rides/user/{theID}")
+    @JsonView({View.WantedRide.class})
+    public List<WantedRide> findAllWantedRidesOfSpecificUser(@PathVariable int theID){
+        return wantedRideService.findWantedRidesOfSpecificUser(theID);
+    }
+
+    @PostMapping("/wanted_ride/addnew")
+    public Response addNewWantedRide(@RequestBody WantedRideSupport wantedRideSupport){
+        return wantedRideService.addNewWantedRide(wantedRideSupport);
+    }
+
+    @PutMapping("/wanted_ride/update")
+    public Response updateWantedRide(@RequestBody WantedRideSupport wantedRideSupport){
+        return wantedRideService.updateWantedRide(wantedRideSupport);
+    }
+
 }
