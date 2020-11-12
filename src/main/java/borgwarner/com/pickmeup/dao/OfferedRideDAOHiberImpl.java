@@ -131,7 +131,9 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             offeredRide.setFrom_where(offeredRideSupport.getFrom_where());
             offeredRide.setTo_where(offeredRideSupport.getTo_where());
             offeredRide.setUser_comment(offeredRideSupport.getUser_comment());
+            user.addOfferedRide(offeredRide);
             session.saveOrUpdate(offeredRide);
+            session.saveOrUpdate(user);
             return new Response(true, "OfferedRide has been successfully added to database // ");
         } else {
             return new Response(false, "No user found // ");
@@ -177,7 +179,14 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
     }
 
     @Override
-    public List<OfferedRide> listOfOfferedRidesOfSpecificUser(int userID) {
-        return null;
+    public List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int userID) {
+        List<OfferedRide> listOfAllOfferedRides = findAllOfferedRides();
+        List<OfferedRide> listOfOfferedRidesOfSpecificUser = new ArrayList<>();
+        for (OfferedRide offeredRide : listOfAllOfferedRides){
+            if(offeredRide.getUser().getId_user() == userID){
+                listOfOfferedRidesOfSpecificUser.add(offeredRide);
+            }
+        }
+        return listOfOfferedRidesOfSpecificUser;
     }
 }

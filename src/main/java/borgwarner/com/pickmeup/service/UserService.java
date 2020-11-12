@@ -21,4 +21,6 @@ public interface UserService {
     Response deleteUserById(int theID);
 
     Response updateUser(UserSupport userSupport);
+
+    User loginToApplication(String email, String password);
 }

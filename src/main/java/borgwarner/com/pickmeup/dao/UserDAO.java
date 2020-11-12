@@ -20,4 +20,6 @@ public interface UserDAO {
     Response deleteUserById(int theID);
 
     Response updateUser(UserSupport userSupport);
+
+    User loginToApplication(String email, String password);
 }

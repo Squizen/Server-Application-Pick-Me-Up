@@ -21,4 +21,6 @@ public interface OfferedRideService {
     Response updateOfferedRide(OfferedRideSupport offeredRideSupport);
 
     Response deleteOfferedRideById(int theID);
+
+    List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int theID);
 }

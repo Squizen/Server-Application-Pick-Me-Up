@@ -22,5 +22,5 @@ public interface OfferedRideDAO {
 
     Response deleteOfferedRideById(int theID);
 
-    List<OfferedRide> listOfOfferedRidesOfSpecificUser(int userID);
+    List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int userID);
 }

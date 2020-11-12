@@ -63,4 +63,9 @@ public class OfferedRideRestController {
     public Response deleteOfferedRideById(@PathVariable int theID){
         return offeredRideService.deleteOfferedRideById(theID);
     }
+    @GetMapping("/offered_rides/user/{theID}")
+    @JsonView({View.OfferedRide.class})
+    public List<OfferedRide> getListOfOfferedRidesOfSpecificUser(@PathVariable int theID){
+        return offeredRideService.getListOfOfferedRidesOfSpecificUser(theID);
+    }
 }

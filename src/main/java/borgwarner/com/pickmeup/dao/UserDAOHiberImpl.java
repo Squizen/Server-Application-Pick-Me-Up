@@ -109,6 +109,7 @@ public class UserDAOHiberImpl implements UserDAO {
         if(user != null){
             Query query = session.createQuery("DELETE FROM User user WHERE user.id_user = " + theID);
             query.executeUpdate();
+//            session.remove(user);
             response.setSuccesful(true);
             response.setMsg("User with ID " + theID + " successfully deleted");
         } else {
@@ -147,6 +148,22 @@ public class UserDAOHiberImpl implements UserDAO {
             response.setMsg("User with ID " + userSupport.getId_user() + " not found");
             response.setSuccesful(false);
             return response;
+        }
+    }
+
+    @Override
+    public User loginToApplication(String email, String password) {
+        Session session = entityManager.unwrap(Session.class);
+        User user = null;
+        try{
+            user = session.createQuery("FROM User user WHERE user.user_email = " +"\'"+email+"\'" + "AND user.user_password = " +"\'"+password+"\'", User.class).getSingleResult();
+        }catch(NoResultException nre){
+            nre.printStackTrace();
+        }
+        if(user != null){
+            return user;
+        } else {
+            throw new RuntimeException("Email or password is wrong");
         }
     }
 }

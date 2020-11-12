@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import borgwarner.com.pickmeup.jsonhelper.View;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="offered_ride")
@@ -28,35 +30,35 @@ public class OfferedRide {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_offered_ride")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private int id_offered_ride;
 
     @Column(name="date_of_ride")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private Date date_of_ride;
 
     @Column(name="time_of_ride")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private Time time_of_ride;
 
     @Column(name="number_of_free_seats")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private int number_of_free_seats;
 
     @Column(name="ride_category")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private int ride_category;
 
     @Column(name="from_where")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private String from_where;
 
     @Column(name="to_where")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private String to_where;
 
     @Column(name="user_comment")
-    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class})
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private String user_comment;
 
     @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
@@ -64,6 +66,12 @@ public class OfferedRide {
     @JoinColumn(name="id_user")
     @JsonView({View.OfferedRide.class})
     private User user;
+
+    @OneToMany(mappedBy="offeredRide",
+            cascade= {CascadeType.ALL})
+//    @JsonView({View.Seat.class, View.OfferedRide.class})
+    @JsonView({View.OfferedRide.class})
+    private List<Seat> listOfSeats;
 
     public OfferedRide() {
 
@@ -151,5 +159,20 @@ public class OfferedRide {
 
     public void setUser_comment(String user_comment) {
         this.user_comment = user_comment;
+    }
+
+    public List<Seat> getListOfSeats() {
+        return listOfSeats;
+    }
+
+    public void setListOfSeats(List<Seat> listOfSeats) {
+        this.listOfSeats = listOfSeats;
+    }
+
+    public void addSeatToOfferedRide(Seat seat){
+        if(listOfSeats == null){
+            listOfSeats = new ArrayList<>();
+        }
+        listOfSeats.add(seat);
     }
 }

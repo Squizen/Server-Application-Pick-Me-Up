@@ -61,4 +61,9 @@ public class OfferedRideServiceImpl implements OfferedRideService {
     public Response deleteOfferedRideById(int theID) {
         return offeredRideDAO.deleteOfferedRideById(theID);
     }
+
+    @Override
+    public List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int theID) {
+        return offeredRideDAO.getListOfOfferedRidesOfSpecificUser(theID);
+    }
 }

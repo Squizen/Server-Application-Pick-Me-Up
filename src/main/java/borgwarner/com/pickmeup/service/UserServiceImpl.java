@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
     public Response updateUser(UserSupport userSupport) {
         return userDAO.updateUser(userSupport);
     }
+
+    @Override
+    public User loginToApplication(String email, String password) {
+        return userDAO.loginToApplication(email, password);
+    }
 }
