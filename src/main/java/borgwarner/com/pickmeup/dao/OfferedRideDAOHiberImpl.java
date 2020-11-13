@@ -172,7 +172,8 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             return new Response(false, "Offered Ride with ID = " + theID + " not found");
         }
         if(offeredRide != null){
-            session.createQuery("DELETE FROM OfferedRide ofr WHERE ofr.id_offered_ride = " + theID).executeUpdate();
+//            session.createQuery("DELETE FROM OfferedRide ofr WHERE ofr.id_offered_ride = " + theID).executeUpdate();
+            session.remove(offeredRide);
             return new Response(true, "Offered Ride with ID = " + theID + " successfully deleted");
         }
         return new Response(false, "Offered Ride with ID = " + theID + " not found");
