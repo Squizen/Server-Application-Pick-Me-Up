@@ -1,5 +1,6 @@
 package borgwarner.com.pickmeup.dao;
 
+import borgwarner.com.pickmeup.entity.OfferedRide;
 import borgwarner.com.pickmeup.entity.User;
 import borgwarner.com.pickmeup.entity.WantedRide;
 import borgwarner.com.pickmeup.support.Response;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,26 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
     @Autowired
     public WantedRideDAOHiberImpl(EntityManager entityManager){
         this.entityManager = entityManager;
+    }
+
+    private boolean isRideAfterTimeParameter(WantedRide wantedRide, String timeParam) {
+        Time time = Time.valueOf(timeParam);
+        if (wantedRide.getTime_of_ride().compareTo(time) >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private int isRideTodayOrAfterDateParameter(WantedRide wantedRide, String startingMoment) {
+        Date date = Date.valueOf(startingMoment);
+        if (wantedRide.getDate_of_ride().compareTo(date) > 0) {
+            return 1;
+        } else if (wantedRide.getDate_of_ride().compareTo(date) == 0) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
     @Override
@@ -102,5 +125,85 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
         } else {
             return new Response(false, "User with ID " + wantedRideSupport.getId_user() + " does not exist in database");
         }
+    }
+
+    @Override
+    public Response deleteWantedRideById(int theID) {
+        Session session = entityManager.unwrap(Session.class);
+        WantedRide wantedRide;
+        Response response = new Response();
+        try{
+            wantedRide = session.get(WantedRide.class, theID);
+        }catch(NoResultException nre){
+            nre.printStackTrace();
+            response.setSuccesful(false);
+            response.setMsg("WantedRide with ID = " + theID + " does not exists in database");
+            return response;
+        }
+        if(wantedRide != null){
+            session.remove(wantedRide);
+            response.setSuccesful(true);
+            response.setMsg("WantedRide has been successfully removed from database");
+        } else {
+            response.setSuccesful(false);
+            response.setMsg("WantedRide with ID = " + theID + " does not exists in database");
+        }
+        return response;
+    }
+
+    @Override
+    public List<WantedRide> findWantedRidesToCompany(String from_where, String startingDay, String startingMoment) {
+        Session session = entityManager.unwrap(Session.class);
+        String hql = "";
+        if (from_where.isEmpty()) {
+            hql = "FROM WantedRide";
+        } else {
+            hql = "FROM WantedRide wr WHERE wr.from_where = " + "\'" + from_where + "\'";
+        }
+        List<WantedRide> listOfWantedRides = session.createQuery(hql, WantedRide.class).getResultList();
+        List<WantedRide> listOfWantedRidesAfterDateTimeParam = new ArrayList<>();
+        for (WantedRide wantedRide : listOfWantedRides) {
+            int resultOfDateComparision = isRideTodayOrAfterDateParameter(wantedRide, startingDay);
+            if (resultOfDateComparision == 1) {
+                listOfWantedRidesAfterDateTimeParam.add(wantedRide);
+            } else if (resultOfDateComparision == 0) {
+                if (isRideAfterTimeParameter(wantedRide, startingMoment)) {
+                    listOfWantedRidesAfterDateTimeParam.add(wantedRide);
+                } else {
+                    continue;
+                }
+            } else {
+                continue;
+            }
+        }
+        return listOfWantedRidesAfterDateTimeParam;
+    }
+
+    @Override
+    public List<WantedRide> findWantedRidesFromCompany(String to_where, String startingDay, String startingMoment) {
+        Session session = entityManager.unwrap(Session.class);
+        String hql = "";
+        if (to_where.isEmpty()) {
+            hql = "FROM WantedRide";
+        } else {
+            hql = "FROM WantedRide wr WHERE wr.from_where = " + "\'" + to_where + "\'";
+        }
+        List<WantedRide> listOfWantedRides = session.createQuery(hql, WantedRide.class).getResultList();
+        List<WantedRide> listOfWantedRidesAfterDateTimeParam = new ArrayList<>();
+        for (WantedRide wantedRide : listOfWantedRides) {
+            int resultOfDateComparision = isRideTodayOrAfterDateParameter(wantedRide, startingDay);
+            if (resultOfDateComparision == 1) {
+                listOfWantedRidesAfterDateTimeParam.add(wantedRide);
+            } else if (resultOfDateComparision == 0) {
+                if (isRideAfterTimeParameter(wantedRide, startingMoment)) {
+                    listOfWantedRidesAfterDateTimeParam.add(wantedRide);
+                } else {
+                    continue;
+                }
+            } else {
+                continue;
+            }
+        }
+        return listOfWantedRidesAfterDateTimeParam;
     }
 }

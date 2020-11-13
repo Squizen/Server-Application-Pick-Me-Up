@@ -18,5 +18,9 @@ public interface WantedRideDAO {
 
     Response updateWantedRide(WantedRideSupport wantedRideSupport);
 
+    Response deleteWantedRideById(int theID);
 
+    List<WantedRide> findWantedRidesToCompany(String from_where, String startingDay, String startingMoment);
+
+    List<WantedRide> findWantedRidesFromCompany(String to_where, String startingDay, String startingMoment);
 }

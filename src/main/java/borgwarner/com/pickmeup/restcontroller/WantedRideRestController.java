@@ -50,5 +50,20 @@ public class WantedRideRestController {
     public Response updateWantedRide(@RequestBody WantedRideSupport wantedRideSupport){
         return wantedRideService.updateWantedRide(wantedRideSupport);
     }
-
+    @DeleteMapping("/wanted_ride/delete/{theID}")
+    public Response deleteWantedRideById(@PathVariable int theID){
+        return wantedRideService.deleteWantedRideById(theID);
+    }
+    @GetMapping("/wanted_rides/from")
+    @JsonView({View.WantedRide.class})
+    @ResponseBody
+    public List<WantedRide> findWantedRidesToCompany(@RequestParam String from_where, @RequestParam String startingDay, @RequestParam String startingMoment){
+        return wantedRideService.findWantedRidesToCompany(from_where, startingDay, startingMoment);
+    }
+    @GetMapping("/wanted_rides/to")
+    @JsonView({View.WantedRide.class})
+    @ResponseBody
+    public List<WantedRide> findWantedRidesFromCompany(@RequestParam String to_where, @RequestParam String startingDay, @RequestParam String startingMoment){
+        return wantedRideService.findWantedRidesFromCompany(to_where, startingDay, startingMoment);
+    }
 }

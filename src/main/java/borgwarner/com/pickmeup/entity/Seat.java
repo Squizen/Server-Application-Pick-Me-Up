@@ -16,7 +16,7 @@ public class Seat {
     private int id_seat;
 
     @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+            CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name="id_offered_ride")
     @JsonView({View.Seat.class, View.User.class})
     private OfferedRide offeredRide;

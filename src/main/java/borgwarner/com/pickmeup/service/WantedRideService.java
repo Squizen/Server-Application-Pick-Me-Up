@@ -17,4 +17,12 @@ public interface WantedRideService {
     Response addNewWantedRide(WantedRideSupport wantedRideSupport);
 
     Response updateWantedRide(WantedRideSupport wantedRideSupport);
+
+    Response deleteWantedRideById(int theID);
+
+    List<WantedRide> findWantedRidesToCompany(String from_where, String startingDay, String startingMoment);
+
+    List<WantedRide> findWantedRidesFromCompany(String to_where, String startingDay, String startingMoment);
+
+
 }

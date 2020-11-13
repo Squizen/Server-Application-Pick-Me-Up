@@ -49,4 +49,22 @@ public class WantedRideServiceImpl implements WantedRideService {
     public Response updateWantedRide(WantedRideSupport wantedRideSupport) {
         return wantedRideDAO.updateWantedRide(wantedRideSupport);
     }
+
+    @Override
+    @Transactional
+    public Response deleteWantedRideById(int theID) {
+        return wantedRideDAO.deleteWantedRideById(theID);
+    }
+
+    @Override
+    @Transactional
+    public List<WantedRide> findWantedRidesToCompany(String from_where, String startingDay, String startingMoment) {
+        return wantedRideDAO.findWantedRidesToCompany(from_where, startingDay, startingMoment);
+    }
+
+    @Override
+    @Transactional
+    public List<WantedRide> findWantedRidesFromCompany(String to_where, String startingDay, String startingMoment) {
+        return wantedRideDAO.findWantedRidesFromCompany(to_where, startingDay, startingMoment);
+    }
 }
