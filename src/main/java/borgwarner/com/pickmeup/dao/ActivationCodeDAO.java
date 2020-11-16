@@ -1,6 +1,7 @@
 package borgwarner.com.pickmeup.dao;
 
 import borgwarner.com.pickmeup.entity.ActivationCode;
+import borgwarner.com.pickmeup.support.ActivationCodeResponse;
 import borgwarner.com.pickmeup.support.Response;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface ActivationCodeDAO {
     Response deleteActivationCodeById(int theID);
 
     Response updateActivationCode(ActivationCode activationCode);
+
+    ActivationCodeResponse findIfCodeExistsAndItsFree(String serialNumber);
 }

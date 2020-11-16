@@ -3,6 +3,7 @@ package borgwarner.com.pickmeup.dao;
 import antlr.actions.cpp.ActionLexerTokenTypes;
 import borgwarner.com.pickmeup.entity.ActivationCode;
 import borgwarner.com.pickmeup.entity.User;
+import borgwarner.com.pickmeup.support.ActivationCodeResponse;
 import borgwarner.com.pickmeup.support.Response;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -110,5 +111,25 @@ public class ActivationCodeDAOHiberImpl implements ActivationCodeDAO {
         Session session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(activationCode);
         return new Response(true, "Activation Code with Serial Number = " + activationCode.getSerial_number() + " has been successfully added to database ");
+    }
+
+    @Override
+    public ActivationCodeResponse findIfCodeExistsAndItsFree(String serialNumber){
+        Session session = entityManager.unwrap(Session.class);
+        ActivationCode activationCode = null;
+        try{
+            activationCode = session.createQuery("FROM ActivationCode ac WHERE ac.serial_number = "  +"\'"+serialNumber+"\'",
+                    ActivationCode.class).getSingleResult();
+            if(activationCode != null){
+                if(activationCode.getUser() == null){
+                    return new ActivationCodeResponse(true, "Activation Code exist in database and its free to use", activationCode.getId_activation_code());
+                } else {
+                    return new ActivationCodeResponse(false, "Activation Code is already taken");
+                }
+            }
+        }catch(NoResultException ex){
+            return new ActivationCodeResponse(false, "Activation Code does not exist in database");
+        }
+        return new ActivationCodeResponse(false, "Activation Code does not exists in database");
     }
 }
