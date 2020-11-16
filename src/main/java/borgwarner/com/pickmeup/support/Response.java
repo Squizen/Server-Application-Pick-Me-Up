@@ -2,23 +2,23 @@ package borgwarner.com.pickmeup.support;
 
 public class Response {
 
-    private boolean succesful;
+    private boolean successful;
     private String msg;
 
     public Response() {
     }
 
-    public Response(boolean succesful, String msg) {
-        this.succesful = succesful;
+    public Response(boolean successful, String msg) {
+        this.successful = successful;
         this.msg = msg;
     }
 
-    public boolean isSuccesful() {
-        return succesful;
+    public boolean isSuccessful() {
+        return successful;
     }
 
-    public void setSuccesful(boolean succesful) {
-        this.succesful = succesful;
+    public void setSuccesful(boolean successful) {
+        this.successful = successful;
     }
 
     public String getMsg() {

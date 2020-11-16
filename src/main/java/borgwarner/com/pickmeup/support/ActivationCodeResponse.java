@@ -4,11 +4,11 @@ public class ActivationCodeResponse extends Response {
 
     private int id_activation_code;
 
-    public ActivationCodeResponse(boolean successfull, String msg){
-        super(successfull, msg);
+    public ActivationCodeResponse(boolean successful, String msg){
+        super(successful, msg);
     }
-    public ActivationCodeResponse(boolean successfull, String msg, int id_activation_code){
-        super(successfull, msg);
+    public ActivationCodeResponse(boolean successful, String msg, int id_activation_code){
+        super(successful, msg);
         this.id_activation_code = id_activation_code;
     }
 
