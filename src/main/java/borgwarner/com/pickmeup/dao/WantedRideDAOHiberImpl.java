@@ -164,10 +164,10 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
         List<WantedRide> listOfWantedRidesAfterDateTimeParam = new ArrayList<>();
         for (WantedRide wantedRide : listOfWantedRides) {
             int resultOfDateComparision = isRideTodayOrAfterDateParameter(wantedRide, startingDay);
-            if (resultOfDateComparision == 1) {
+            if (resultOfDateComparision == 1 && wantedRide.getRide_category() == 0) {
                 listOfWantedRidesAfterDateTimeParam.add(wantedRide);
             } else if (resultOfDateComparision == 0) {
-                if (isRideAfterTimeParameter(wantedRide, startingMoment)) {
+                if (isRideAfterTimeParameter(wantedRide, startingMoment) && wantedRide.getRide_category() == 0) {
                     listOfWantedRidesAfterDateTimeParam.add(wantedRide);
                 } else {
                     continue;
@@ -186,16 +186,16 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
         if (to_where.isEmpty()) {
             hql = "FROM WantedRide";
         } else {
-            hql = "FROM WantedRide wr WHERE wr.from_where = " + "\'" + to_where + "\'";
+            hql = "FROM WantedRide wr WHERE wr.to_where = " + "\'" + to_where + "\'";
         }
         List<WantedRide> listOfWantedRides = session.createQuery(hql, WantedRide.class).getResultList();
         List<WantedRide> listOfWantedRidesAfterDateTimeParam = new ArrayList<>();
         for (WantedRide wantedRide : listOfWantedRides) {
             int resultOfDateComparision = isRideTodayOrAfterDateParameter(wantedRide, startingDay);
-            if (resultOfDateComparision == 1) {
+            if (resultOfDateComparision == 1 && wantedRide.getRide_category() == 1) {
                 listOfWantedRidesAfterDateTimeParam.add(wantedRide);
             } else if (resultOfDateComparision == 0) {
-                if (isRideAfterTimeParameter(wantedRide, startingMoment)) {
+                if (isRideAfterTimeParameter(wantedRide, startingMoment) && wantedRide.getRide_category() == 1) {
                     listOfWantedRidesAfterDateTimeParam.add(wantedRide);
                 } else {
                     continue;

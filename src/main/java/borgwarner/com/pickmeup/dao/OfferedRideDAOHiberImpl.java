@@ -74,10 +74,10 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
         List<OfferedRide> listOfOfferedRidesAfterDateTimeParam = new ArrayList<>();
         for (OfferedRide offeredRide : listOfOfferedRides) {
             int resultOfDateComparision = isRideTodayOrAfterDateParameter(offeredRide, startingDay);
-            if (resultOfDateComparision == 1) {
+            if (resultOfDateComparision == 1 && offeredRide.getRide_category() == 0) {
                 listOfOfferedRidesAfterDateTimeParam.add(offeredRide);
             } else if (resultOfDateComparision == 0) {
-                if (isRideAfterTimeParameter(offeredRide, startingMoment)) {
+                if (isRideAfterTimeParameter(offeredRide, startingMoment) && offeredRide.getRide_category() == 0) {
                     listOfOfferedRidesAfterDateTimeParam.add(offeredRide);
                 } else {
                     continue;
@@ -96,16 +96,16 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
         if (to_where.isEmpty()) {
             hql = "FROM OfferedRide";
         } else {
-            hql = "FROM OfferedRide off WHERE off.from_where = " + "\'" + to_where + "\'";
+            hql = "FROM OfferedRide off WHERE off.to_where = " + "\'" + to_where + "\'";
         }
         List<OfferedRide> listOfOfferedRides = session.createQuery(hql, OfferedRide.class).getResultList();
         List<OfferedRide> listOfOfferedRidesAfterDateTimeParam = new ArrayList<>();
         for (OfferedRide offeredRide : listOfOfferedRides) {
             int resultOfDateComparision = isRideTodayOrAfterDateParameter(offeredRide, startingDay);
-            if (resultOfDateComparision == 1) {
+            if (resultOfDateComparision == 1 && offeredRide.getRide_category() == 1) {
                 listOfOfferedRidesAfterDateTimeParam.add(offeredRide);
             } else if (resultOfDateComparision == 0) {
-                if (isRideAfterTimeParameter(offeredRide, startingMoment)) {
+                if (isRideAfterTimeParameter(offeredRide, startingMoment) && offeredRide.getRide_category() == 1) {
                     listOfOfferedRidesAfterDateTimeParam.add(offeredRide);
                 } else {
                     continue;
