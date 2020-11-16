@@ -3,6 +3,7 @@ package borgwarner.com.pickmeup.restcontroller;
 import borgwarner.com.pickmeup.entity.ActivationCode;
 import borgwarner.com.pickmeup.jsonhelper.View;
 import borgwarner.com.pickmeup.service.ActivationCodeService;
+import borgwarner.com.pickmeup.support.ActivationCodeResponse;
 import borgwarner.com.pickmeup.support.Response;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,10 @@ public class ActivationCodeRestController {
     @PutMapping("/activationcode/update")
     public Response updateActivationCode(@RequestBody ActivationCode activationCode){
         return activationCodeService.updateActivationCode(activationCode);
+    }
+    @GetMapping("/activationcode/check")
+    @ResponseBody
+    public ActivationCodeResponse findIfCodeExistsAndItsFree(@RequestParam String serialNumber){
+        return activationCodeService.findIfCodeExistsAndItsFree(serialNumber);
     }
 }

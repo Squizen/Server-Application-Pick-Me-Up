@@ -2,6 +2,7 @@ package borgwarner.com.pickmeup.service;
 
 import borgwarner.com.pickmeup.dao.ActivationCodeDAO;
 import borgwarner.com.pickmeup.entity.ActivationCode;
+import borgwarner.com.pickmeup.support.ActivationCodeResponse;
 import borgwarner.com.pickmeup.support.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,11 @@ public class ActivationCodeServiceImpl implements ActivationCodeService{
     @Transactional
     public Response updateActivationCode(ActivationCode activationCode) {
         return activationCodeDAO.addNewActivationcode(activationCode);
+    }
+
+    @Override
+    @Transactional
+    public ActivationCodeResponse findIfCodeExistsAndItsFree(String serialNumber) {
+        return activationCodeDAO.findIfCodeExistsAndItsFree(serialNumber);
     }
 }
