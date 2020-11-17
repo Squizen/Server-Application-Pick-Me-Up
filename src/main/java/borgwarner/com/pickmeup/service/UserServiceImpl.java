@@ -62,7 +62,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User loginToApplication(String email, String password) {
         return userDAO.loginToApplication(email, password);
+    }
+
+    @Override
+    @Transactional
+    public Response checkIfEmailIsAvailable(String email) {
+        return userDAO.checkIfEmailIsAvailable(email);
     }
 }

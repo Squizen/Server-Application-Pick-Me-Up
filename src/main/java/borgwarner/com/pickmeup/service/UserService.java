@@ -23,4 +23,6 @@ public interface UserService {
     Response updateUser(UserSupport userSupport);
 
     User loginToApplication(String email, String password);
+
+    Response checkIfEmailIsAvailable(String email);
 }

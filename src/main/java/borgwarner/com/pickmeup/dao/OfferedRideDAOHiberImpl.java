@@ -127,7 +127,7 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             offeredRide.setDate_of_ride(offeredRideSupport.getDate_of_ride());
             offeredRide.setTime_of_ride(offeredRideSupport.getTime_of_ride());
             offeredRide.setNumber_of_free_seats(offeredRideSupport.getNumber_of_free_seats());
-            offeredRide.setRide_category(offeredRideSupport.getNumber_of_free_seats());
+            offeredRide.setRide_category(offeredRideSupport.getRide_category());
             offeredRide.setFrom_where(offeredRideSupport.getFrom_where());
             offeredRide.setTo_where(offeredRideSupport.getTo_where());
             offeredRide.setUser_comment(offeredRideSupport.getUser_comment());

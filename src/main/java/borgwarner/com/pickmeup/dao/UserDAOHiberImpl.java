@@ -166,4 +166,20 @@ public class UserDAOHiberImpl implements UserDAO {
             throw new RuntimeException("Email or password is wrong");
         }
     }
+
+    @Override
+    public Response checkIfEmailIsAvailable(String email) {
+        Session session = entityManager.unwrap(Session.class);
+        User user = null;
+        try{
+           user = session.createQuery("FROM User user WHERE user.user_email = " + "\'" + email + "\'", User.class).getSingleResult();
+        }catch(NoResultException nre){
+            return new Response(true, "Email is free to use");
+        }
+        if(user == null){
+            return new Response(true, "Email is free to use");
+        } else {
+            return new Response(false, "Email already taken");
+        }
+    }
 }
