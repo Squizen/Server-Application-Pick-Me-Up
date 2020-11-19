@@ -40,7 +40,7 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     @Transactional
-    public Response addNewSeat(SeatSupport seatSupport) {
+    public Seat addNewSeat(SeatSupport seatSupport) {
         return seatDAO.addNewSeat(seatSupport);
     }
 

@@ -56,7 +56,7 @@ public class SeatDAOHiberImpl implements SeatDAO {
     }
 
     @Override
-    public Response addNewSeat(SeatSupport seatSupport) {
+    public Seat addNewSeat(SeatSupport seatSupport) {
         Session session = entityManager.unwrap(Session.class);
         User user = session.get(User.class, seatSupport.getId_user());
         OfferedRide offeredRide = session.get(OfferedRide.class, seatSupport.getId_offered_ride());
@@ -72,13 +72,13 @@ public class SeatDAOHiberImpl implements SeatDAO {
                 session.saveOrUpdate(seat);
                 session.saveOrUpdate(user);
                 session.saveOrUpdate(offeredRide);
+                return seat;
             } else {
-                return new Response(false, "There are no more free seats for this ride");
+                throw new RuntimeException("There are no more free seats for this ride");
             }
         } else {
-            return new Response(false, "User or OfferedRide not exist");
+            throw new RuntimeException("User or OfferedRide does not exists");
         }
-        return new Response(true, "Seat has been successfully created and added to database");
     }
 
     @Override

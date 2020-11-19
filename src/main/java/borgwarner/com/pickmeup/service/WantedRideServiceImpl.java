@@ -40,7 +40,7 @@ public class WantedRideServiceImpl implements WantedRideService {
 
     @Override
     @Transactional
-    public Response addNewWantedRide(WantedRideSupport wantedRideSupport) {
+    public WantedRide addNewWantedRide(WantedRideSupport wantedRideSupport) {
         return wantedRideDAO.addNewWantedRide(wantedRideSupport);
     }
 

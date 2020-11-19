@@ -15,7 +15,7 @@ public interface UserDAO {
 
     List<User> findAllInactiveUsers();
 
-    Response addUserWithActivationCodeSerialNumber(UserSupport userSupport);
+    User addUserWithActivationCodeSerialNumber(UserSupport userSupport);
 
     Response deleteUserById(int theID);
 

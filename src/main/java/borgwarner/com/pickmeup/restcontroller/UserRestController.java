@@ -52,7 +52,8 @@ public class UserRestController {
     }
 
     @PostMapping("/user/addnew")
-    public Response addUserWithActivationCodeSerialNumber(@RequestBody UserSupport userSupport){
+    @JsonView(View.User.class)
+    public User addUserWithActivationCodeSerialNumber(@RequestBody UserSupport userSupport){
         return userService.addUserWithActivationCodeSerialNumber(userSupport);
     }
     @DeleteMapping("/user/delete/{theID}")

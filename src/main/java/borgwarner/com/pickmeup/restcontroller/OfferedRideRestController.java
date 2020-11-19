@@ -51,7 +51,8 @@ public class OfferedRideRestController {
         return offeredRideService.listOfRidesFromCompany(to_where, startingDay, startingMoment);
     }
     @PostMapping("/offered_ride/addnew")
-    public Response addNewOfferedRide(@RequestBody OfferedRideSupport offeredRideSupport){
+    @JsonView({View.OfferedRide.class})
+    public OfferedRide addNewOfferedRide(@RequestBody OfferedRideSupport offeredRideSupport){
         offeredRideSupport.setId_offered_ride(0);
         return offeredRideService.addNewOfferedRide(offeredRideSupport);
     }

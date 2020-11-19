@@ -42,7 +42,8 @@ public class WantedRideRestController {
     }
 
     @PostMapping("/wanted_ride/addnew")
-    public Response addNewWantedRide(@RequestBody WantedRideSupport wantedRideSupport){
+    @JsonView({View.WantedRide.class})
+    public WantedRide addNewWantedRide(@RequestBody WantedRideSupport wantedRideSupport){
         return wantedRideService.addNewWantedRide(wantedRideSupport);
     }
 

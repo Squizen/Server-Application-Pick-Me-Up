@@ -46,7 +46,7 @@ public class OfferedRideServiceImpl implements OfferedRideService {
 
     @Override
     @Transactional
-    public Response addNewOfferedRide(OfferedRideSupport offeredRideSupport) {
+    public OfferedRide addNewOfferedRide(OfferedRideSupport offeredRideSupport) {
         return offeredRideDAO.addNewOfferedRide(offeredRideSupport);
     }
 

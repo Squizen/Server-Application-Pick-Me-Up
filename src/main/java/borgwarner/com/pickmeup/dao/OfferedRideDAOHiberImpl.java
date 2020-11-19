@@ -118,7 +118,7 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
     }
 
     @Override
-    public Response addNewOfferedRide(OfferedRideSupport offeredRideSupport) {
+    public OfferedRide addNewOfferedRide(OfferedRideSupport offeredRideSupport) {
         Session session = entityManager.unwrap(Session.class);
         User user = userDAO.findUserById(offeredRideSupport.getId_user());
         if (user != null) {
@@ -134,9 +134,9 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             user.addOfferedRide(offeredRide);
             session.saveOrUpdate(offeredRide);
             session.saveOrUpdate(user);
-            return new Response(true, "OfferedRide has been successfully added to database // ");
+            return offeredRide;
         } else {
-            return new Response(false, "No user found // ");
+            throw new RuntimeException("No user was found");
         }
     }
 
@@ -151,7 +151,7 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             offeredRide.setDate_of_ride(offeredRideSupport.getDate_of_ride());
             offeredRide.setTime_of_ride(offeredRideSupport.getTime_of_ride());
             offeredRide.setNumber_of_free_seats(offeredRideSupport.getNumber_of_free_seats());
-            offeredRide.setRide_category(offeredRideSupport.getNumber_of_free_seats());
+            offeredRide.setRide_category(offeredRideSupport.getRide_category());
             offeredRide.setFrom_where(offeredRideSupport.getFrom_where());
             offeredRide.setTo_where(offeredRideSupport.getTo_where());
             offeredRide.setUser_comment(offeredRideSupport.getUser_comment());

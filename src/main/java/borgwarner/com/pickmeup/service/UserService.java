@@ -16,7 +16,7 @@ public interface UserService {
 
     List<User> findAllInactiveUsers();
 
-    Response addUserWithActivationCodeSerialNumber(UserSupport userSupport);
+    User addUserWithActivationCodeSerialNumber(UserSupport userSupport);
 
     Response deleteUserById(int theID);
 

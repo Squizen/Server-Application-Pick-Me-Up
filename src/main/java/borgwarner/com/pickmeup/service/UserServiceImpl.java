@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Response addUserWithActivationCodeSerialNumber(UserSupport userSupport) {
+    public User addUserWithActivationCodeSerialNumber(UserSupport userSupport) {
         return userDAO.addUserWithActivationCodeSerialNumber(userSupport);
     }
 
