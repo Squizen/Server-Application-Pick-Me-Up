@@ -59,20 +59,14 @@ public class UserDAOHiberImpl implements UserDAO {
 
     // Request number 5
     @Override
-    public Response addUserWithActivationCodeSerialNumber(UserSupport userSupport) {
+    public User addUserWithActivationCodeSerialNumber(UserSupport userSupport) {
         ActivationCode activationCode = activationCodeDAO.findActivationCodeBySerialNumber(userSupport.getSerialNumber());
         Response response = new Response();
         if (activationCode == null) {
-            response.setSuccesful(false);
-            response.setMsg("ActivationCode does not exist in database");
-            return response;
-//            throw new RuntimeException("ActivationCode does not exist in database // ");
+            throw new RuntimeException("ActivationCode does not exist in database // ");
         }
         if (activationCode.getUser() != null) {
-            response.setSuccesful(false);
-            response.setMsg("ActivationCode is already taken ! ");
-            return response;
-//            throw new RuntimeException("ActivationCode is already taken ! // ");
+            throw new RuntimeException("ActivationCode is already taken ! // ");
         }
         User user = new User();
         user.setId_user(0);
@@ -88,9 +82,7 @@ public class UserDAOHiberImpl implements UserDAO {
 
         Session session = entityManager.unwrap(Session.class);
         session.save(user);
-        response.setSuccesful(true);
-        response.setMsg("User successfuly added to database");
-        return response;
+        return user;
     }
 
     // Request number 6

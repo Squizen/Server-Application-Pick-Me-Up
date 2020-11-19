@@ -16,7 +16,7 @@ public interface OfferedRideService {
 
     List<OfferedRide> listOfRidesFromCompany(String to_where, String startingDay, String startingMoment);
 
-    Response addNewOfferedRide(OfferedRideSupport offeredRideSupport);
+    OfferedRide addNewOfferedRide(OfferedRideSupport offeredRideSupport);
 
     Response updateOfferedRide(OfferedRideSupport offeredRideSupport);
 

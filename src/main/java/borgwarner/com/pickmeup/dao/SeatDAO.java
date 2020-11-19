@@ -14,7 +14,7 @@ public interface SeatDAO {
 
     List<Seat> findAllSeatsOfSpecificOfferedRide(int theID);
 
-    Response addNewSeat(SeatSupport seatSupport);
+    Seat addNewSeat(SeatSupport seatSupport);
 
     Response deleteSeatByID(int theID);
 }

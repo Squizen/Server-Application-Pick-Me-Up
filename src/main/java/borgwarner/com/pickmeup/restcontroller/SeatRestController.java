@@ -40,7 +40,8 @@ public class SeatRestController {
         return seatService.findAllSeatsOfSpecificOfferedRide(theID);
     }
     @PostMapping("/seat/addnew")
-    public Response addNewSeat(@RequestBody SeatSupport seatSupport){
+    @JsonView({View.Seat.class})
+    public Seat addNewSeat(@RequestBody SeatSupport seatSupport){
         return seatService.addNewSeat(seatSupport);
     }
 

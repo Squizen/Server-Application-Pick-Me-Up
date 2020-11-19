@@ -14,7 +14,7 @@ public interface WantedRideService {
 
     List<WantedRide> findWantedRidesOfSpecificUser(int theID);
 
-    Response addNewWantedRide(WantedRideSupport wantedRideSupport);
+    WantedRide addNewWantedRide(WantedRideSupport wantedRideSupport);
 
     Response updateWantedRide(WantedRideSupport wantedRideSupport);
 

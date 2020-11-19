@@ -82,7 +82,7 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
     }
 
     @Override
-    public Response addNewWantedRide(WantedRideSupport wantedRideSupport) {
+    public WantedRide addNewWantedRide(WantedRideSupport wantedRideSupport) {
         Session session = entityManager.unwrap(Session.class);
         User user = session.get(User.class, wantedRideSupport.getId_user());
         if(user != null){
@@ -98,9 +98,9 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
             user.addToListOfWantedRides(wantedRide);
             session.saveOrUpdate(user);
             session.saveOrUpdate(wantedRide);
-            return new Response(true, "WantedRide has been successfully created");
+            return wantedRide;
         } else {
-            return new Response(false, "User with ID " + wantedRideSupport.getId_user() + " does not exist in database");
+            throw new RuntimeException("User with ID " + wantedRideSupport.getId_user() + " does not exist in database");
         }
     }
 
