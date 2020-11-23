@@ -70,9 +70,9 @@ public class UserRestController {
     public User loginToApplication(@RequestParam String email, @RequestParam String password){
         return userService.loginToApplication(email, password);
     }
-
     @GetMapping("/email/available")
     public Response checkIfEmailIsAvailable(@RequestParam String email){
         return userService.checkIfEmailIsAvailable(email);
     }
+
 }

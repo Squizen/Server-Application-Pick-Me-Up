@@ -98,4 +98,17 @@ public class SeatDAOHiberImpl implements SeatDAO {
             return new Response(false, "Seat with ID = " + theID + " not exist in database");
         }
     }
+
+    @Override
+    public List<Seat> getListOfAllSeatsOfSpecificUser(int theID) {
+        Session session = entityManager.unwrap(Session.class);
+        List<Seat> listOfAllSeats = session.createQuery("from Seat", Seat.class).getResultList();
+        List<Seat> listOfUsersSeats = new ArrayList<>();
+        for (int i = 0; i < listOfAllSeats.size(); i++) {
+            if(listOfAllSeats.get(i).getUser().getId_user() == theID){
+                listOfUsersSeats.add(listOfAllSeats.get(i));
+            }
+        }
+        return listOfUsersSeats;
+    }
 }
