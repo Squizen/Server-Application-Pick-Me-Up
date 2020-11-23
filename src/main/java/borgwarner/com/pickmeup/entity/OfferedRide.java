@@ -64,7 +64,7 @@ public class OfferedRide {
     @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="id_user")
-    @JsonView({View.OfferedRide.class})
+    @JsonView({View.OfferedRide.class, View.Seat.class})
     private User user;
 
     @OneToMany(mappedBy="offeredRide",
