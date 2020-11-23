@@ -50,5 +50,9 @@ public class SeatServiceImpl implements SeatService {
         return seatDAO.deleteSeatByID(theID);
     }
 
-
+    @Override
+    @Transactional
+    public List<Seat> getListOfAllSeatsOfSpecificUser(int theID){
+        return seatDAO.getListOfAllSeatsOfSpecificUser(theID);
+    }
 }

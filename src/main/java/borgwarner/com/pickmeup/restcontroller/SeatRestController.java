@@ -1,6 +1,7 @@
 package borgwarner.com.pickmeup.restcontroller;
 
 import borgwarner.com.pickmeup.entity.Seat;
+import borgwarner.com.pickmeup.entity.User;
 import borgwarner.com.pickmeup.jsonhelper.View;
 import borgwarner.com.pickmeup.service.SeatService;
 import borgwarner.com.pickmeup.support.Response;
@@ -48,5 +49,11 @@ public class SeatRestController {
     @DeleteMapping("/seat/delete/{theID}")
     public Response deleteSeatByID(@PathVariable int theID){
         return seatService.deleteSeatByID(theID);
+    }
+
+    @GetMapping("/seats/ofuser/{theID}")
+    @JsonView(View.Seat.class)
+    public List<Seat> getListOfAllSeatsOfSpecificUser(@PathVariable int theID){
+        return seatService.getListOfAllSeatsOfSpecificUser(theID);
     }
 }

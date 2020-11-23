@@ -19,5 +19,5 @@ public interface SeatService {
 
     Response deleteSeatByID(int theID);
 
-
+    List<Seat> getListOfAllSeatsOfSpecificUser(int theID);
 }

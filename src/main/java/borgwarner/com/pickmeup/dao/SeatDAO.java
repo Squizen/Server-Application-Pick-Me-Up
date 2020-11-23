@@ -17,4 +17,6 @@ public interface SeatDAO {
     Seat addNewSeat(SeatSupport seatSupport);
 
     Response deleteSeatByID(int theID);
+
+    List<Seat> getListOfAllSeatsOfSpecificUser(int theID);
 }
