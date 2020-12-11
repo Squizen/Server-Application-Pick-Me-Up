@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
-    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class ,View.UserComplaint.class})
     private int id_user;
 
     @OneToOne(cascade = {CascadeType.DETACH,
@@ -28,15 +28,15 @@ public class User {
     private ActivationCode activationCode;
 
     @Column(name = "user_name")
-    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class,View.UserComplaint.class})
     private String user_name;
 
     @Column(name = "user_surname")
-    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class,View.UserComplaint.class})
     private String user_surname;
 
     @Column(name = "user_email")
-    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class,View.UserComplaint.class})
     private String user_email;
 
     @Column(name = "user_password")
@@ -44,7 +44,7 @@ public class User {
     private String user_password;
 
     @Column(name = "user_phone_number")
-    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class})
+    @JsonView({View.ActivationCode.class, View.User.class, View.OfferedRide.class, View.Seat.class, View.WantedRide.class,View.UserComplaint.class})
     private String user_phone_number;
 
     @Column(name = "user_car")
@@ -56,7 +56,7 @@ public class User {
     private String user_description;
 
     @Column(name = "is_active")
-    @JsonView({View.ActivationCode.class, View.User.class})
+    @JsonView({View.ActivationCode.class, View.User.class ,View.UserComplaint.class})
     private boolean is_active;
 
     @OneToMany(mappedBy="user",
@@ -73,6 +73,11 @@ public class User {
             cascade= {CascadeType.ALL})
     @JsonView({View.User.class})
     private List<WantedRide> listOfWantedRides;
+
+    @OneToMany(mappedBy="id_user_driver",
+            cascade= {CascadeType.ALL})
+    @JsonView({View.User.class})
+    private List<WantedRide> listOfRidesAsADriver;
 
 
 
@@ -190,5 +195,12 @@ public class User {
             listOfWantedRides = new ArrayList<>();
         }
         listOfWantedRides.add(wantedRide);
+    }
+    public void addToWantedRideAsADriver(WantedRide wantedRide){
+        if(listOfRidesAsADriver == null){
+            listOfRidesAsADriver = new ArrayList<>();
+        } else {
+            listOfRidesAsADriver.add(wantedRide);
+        }
     }
 }

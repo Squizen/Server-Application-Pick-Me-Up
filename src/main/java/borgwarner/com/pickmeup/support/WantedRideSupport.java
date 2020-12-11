@@ -7,12 +7,14 @@ public class WantedRideSupport {
 
     private int id_wanted_ride;
     private int id_user;
+    private String user_phone_number;
     private Date date_of_ride;
     private Time time_of_ride;
     private int ride_category;
     private String from_where;
     private String to_where;
     private String user_comment;
+    private int id_user_driver;
 
     public WantedRideSupport(){
 
@@ -32,6 +34,14 @@ public class WantedRideSupport {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public String getUser_phone_number() {
+        return user_phone_number;
+    }
+
+    public void setUser_phone_number(String user_phone_number) {
+        this.user_phone_number = user_phone_number;
     }
 
     public Date getDate_of_ride() {
@@ -80,5 +90,13 @@ public class WantedRideSupport {
 
     public void setUser_comment(String user_comment) {
         this.user_comment = user_comment;
+    }
+
+    public int getId_user_driver() {
+        return id_user_driver;
+    }
+
+    public void setId_user_driver(int id_user_driver) {
+        this.id_user_driver = id_user_driver;
     }
 }

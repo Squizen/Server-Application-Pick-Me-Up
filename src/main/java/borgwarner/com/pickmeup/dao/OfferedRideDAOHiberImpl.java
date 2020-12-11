@@ -125,6 +125,7 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             OfferedRide offeredRide = new OfferedRide();
             offeredRide.setUser(user);
             offeredRide.setDate_of_ride(offeredRideSupport.getDate_of_ride());
+            offeredRide.setUser_phone_number(offeredRideSupport.getUser_phone_number());
             offeredRide.setTime_of_ride(offeredRideSupport.getTime_of_ride());
             offeredRide.setNumber_of_free_seats(offeredRideSupport.getNumber_of_free_seats());
             offeredRide.setRide_category(offeredRideSupport.getRide_category());
@@ -148,6 +149,7 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             OfferedRide offeredRide = new OfferedRide();
             offeredRide.setId_offered_ride(offeredRideSupport.getId_offered_ride());
             offeredRide.setUser(user);
+            offeredRide.setUser_phone_number(offeredRideSupport.getUser_phone_number());
             offeredRide.setDate_of_ride(offeredRideSupport.getDate_of_ride());
             offeredRide.setTime_of_ride(offeredRideSupport.getTime_of_ride());
             offeredRide.setNumber_of_free_seats(offeredRideSupport.getNumber_of_free_seats());
