@@ -7,4 +7,5 @@ public interface View {
     interface OfferedRide{}
     interface Seat{}
     interface WantedRide{}
+    interface UserComplaint{}
 }

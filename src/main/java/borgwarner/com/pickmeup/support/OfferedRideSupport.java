@@ -7,6 +7,7 @@ public class OfferedRideSupport {
 
     private int id_offered_ride;
     private int id_user;
+    private String user_phone_number;
     private Date date_of_ride;
     private Time time_of_ride;
     private int number_of_free_seats;
@@ -29,6 +30,14 @@ public class OfferedRideSupport {
         this.from_where = from_where;
         this.to_where = to_where;
         this.user_comment = user_comment;
+    }
+
+    public String getUser_phone_number() {
+        return user_phone_number;
+    }
+
+    public void setUser_phone_number(String user_phone_number) {
+        this.user_phone_number = user_phone_number;
     }
 
     public int getId_offered_ride() {

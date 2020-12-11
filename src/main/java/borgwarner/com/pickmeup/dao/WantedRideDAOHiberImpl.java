@@ -88,6 +88,7 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
         if(user != null){
             WantedRide wantedRide = new WantedRide();
             wantedRide.setId_wanted_ride(0);
+            wantedRide.setUser_phone_number(wantedRideSupport.getUser_phone_number());
             wantedRide.setDate_of_ride(wantedRideSupport.getDate_of_ride());
             wantedRide.setTime_of_ride(wantedRideSupport.getTime_of_ride());
             wantedRide.setRide_category(wantedRideSupport.getRide_category());
@@ -108,19 +109,29 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
     public Response updateWantedRide(WantedRideSupport wantedRideSupport) {
         Session session = entityManager.unwrap(Session.class);
         User user = session.get(User.class, wantedRideSupport.getId_user());
+        User driver = session.get(User.class, wantedRideSupport.getId_user_driver());
         if(user != null){
             WantedRide wantedRide = new WantedRide();
             wantedRide.setId_wanted_ride(wantedRideSupport.getId_wanted_ride());
+            wantedRide.setUser_phone_number(wantedRideSupport.getUser_phone_number());
             wantedRide.setDate_of_ride(wantedRideSupport.getDate_of_ride());
             wantedRide.setTime_of_ride(wantedRideSupport.getTime_of_ride());
             wantedRide.setRide_category(wantedRideSupport.getRide_category());
             wantedRide.setFrom_where(wantedRideSupport.getFrom_where());
             wantedRide.setTo_where(wantedRideSupport.getTo_where());
             wantedRide.setUser_comment(wantedRideSupport.getUser_comment());
-            wantedRide.setUser(user);
+
+            if(driver != null){
+                wantedRide.setId_user_driver(driver);
+                session.saveOrUpdate(driver);
+            }
+
             user.addToListOfWantedRides(wantedRide);
+            wantedRide.setUser(user);
+
             session.saveOrUpdate(user);
             session.saveOrUpdate(wantedRide);
+
             return new Response(true, "WantedRide has been successfully updated");
         } else {
             return new Response(false, "User with ID " + wantedRideSupport.getId_user() + " does not exist in database");

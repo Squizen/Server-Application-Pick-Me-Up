@@ -23,6 +23,10 @@ public class WantedRide {
     @JsonView({View.WantedRide.class})
     private User user;
 
+    @Column(name="user_phone_number")
+    @JsonView({View.User.class, View.WantedRide.class})
+    private String user_phone_number;
+
     @Column(name="date_of_ride")
     @JsonView({View.User.class, View.WantedRide.class})
     private Date date_of_ride;
@@ -47,6 +51,12 @@ public class WantedRide {
     @JsonView({View.User.class, View.WantedRide.class})
     private String user_comment;
 
+    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name="id_user_driver")
+    @JsonView({View.WantedRide.class})
+    private User id_user_driver;
+
     public WantedRide(){
 
     }
@@ -65,6 +75,14 @@ public class WantedRide {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getUser_phone_number() {
+        return user_phone_number;
+    }
+
+    public void setUser_phone_number(String user_phone_number) {
+        this.user_phone_number = user_phone_number;
     }
 
     public Date getDate_of_ride() {
@@ -113,5 +131,13 @@ public class WantedRide {
 
     public void setUser_comment(String user_comment) {
         this.user_comment = user_comment;
+    }
+
+    public User getId_user_driver() {
+        return id_user_driver;
+    }
+
+    public void setId_user_driver(User id_user_driver) {
+        this.id_user_driver = id_user_driver;
     }
 }

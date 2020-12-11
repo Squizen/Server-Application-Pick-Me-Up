@@ -37,6 +37,10 @@ public class OfferedRide {
     @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private Date date_of_ride;
 
+    @Column(name="user_phone_number")
+    @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
+    private String user_phone_number;
+
     @Column(name="time_of_ride")
     @JsonView({View.User.class, View.ActivationCode.class, View.OfferedRide.class, View.Seat.class})
     private Time time_of_ride;
@@ -71,6 +75,7 @@ public class OfferedRide {
             cascade= {CascadeType.ALL})
 //    @JsonView({View.Seat.class, View.OfferedRide.class})
     @JsonView({View.OfferedRide.class})
+
     private List<Seat> listOfSeats;
 
     public OfferedRide() {
@@ -174,5 +179,13 @@ public class OfferedRide {
             listOfSeats = new ArrayList<>();
         }
         listOfSeats.add(seat);
+    }
+
+    public String getUser_phone_number() {
+        return user_phone_number;
+    }
+
+    public void setUser_phone_number(String user_phone_number) {
+        this.user_phone_number = user_phone_number;
     }
 }
