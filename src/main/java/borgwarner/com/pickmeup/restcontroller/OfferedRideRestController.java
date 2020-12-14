@@ -69,4 +69,10 @@ public class OfferedRideRestController {
     public List<OfferedRide> getListOfOfferedRidesOfSpecificUser(@PathVariable int theID){
         return offeredRideService.getListOfOfferedRidesOfSpecificUser(theID);
     }
+
+    @GetMapping("/offered_rides/user/{theID}/already_done")
+    @JsonView({View.OfferedRide.class})
+    public List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(@PathVariable int theID){
+        return offeredRideService.getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(theID);
+    }
 }

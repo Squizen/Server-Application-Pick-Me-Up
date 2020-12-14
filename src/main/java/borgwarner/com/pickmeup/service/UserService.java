@@ -25,4 +25,5 @@ public interface UserService {
     User loginToApplication(String email, String password);
 
     Response checkIfEmailIsAvailable(String email);
+
 }
