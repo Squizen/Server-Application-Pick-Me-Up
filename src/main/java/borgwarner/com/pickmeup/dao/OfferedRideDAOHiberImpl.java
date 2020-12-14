@@ -192,4 +192,23 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
         }
         return listOfOfferedRidesOfSpecificUser;
     }
+
+    @Override
+    public List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(int userID) {
+        List<OfferedRide> listOfOfferedRideBySpecificUser = getListOfOfferedRidesOfSpecificUser(userID);
+        List<OfferedRide> listOfAlreadyDoneOfferedRides = new ArrayList<>();
+        for (OfferedRide off:
+             listOfOfferedRideBySpecificUser) {
+            Date date = new java.sql.Date(System.currentTimeMillis());
+            Time time = new Time(date.getTime());
+            if(isRideTodayOrAfterDateParameter(off, date.toString()) == -1){
+                listOfAlreadyDoneOfferedRides.add(off);
+            } else if (isRideTodayOrAfterDateParameter(off, date.toString()) == 0){
+                if(!isRideAfterTimeParameter(off, time.toString())){
+                    listOfAlreadyDoneOfferedRides.add(off);
+                }
+            }
+        }
+        return listOfAlreadyDoneOfferedRides;
+    }
 }

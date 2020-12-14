@@ -23,4 +23,6 @@ public interface OfferedRideService {
     Response deleteOfferedRideById(int theID);
 
     List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int theID);
+
+    List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(int theID);
 }
