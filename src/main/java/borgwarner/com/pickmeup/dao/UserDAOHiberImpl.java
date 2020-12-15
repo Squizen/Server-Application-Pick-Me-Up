@@ -1,7 +1,10 @@
 package borgwarner.com.pickmeup.dao;
 
 import borgwarner.com.pickmeup.entity.ActivationCode;
+import borgwarner.com.pickmeup.entity.OfferedRide;
+import borgwarner.com.pickmeup.entity.WantedRide;
 import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserStatistics;
 import borgwarner.com.pickmeup.support.UserSupport;
 import borgwarner.com.pickmeup.entity.User;
 import org.hibernate.Session;
@@ -11,6 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -18,11 +24,13 @@ public class UserDAOHiberImpl implements UserDAO {
 
     private EntityManager entityManager;
     private ActivationCodeDAO activationCodeDAO;
+    private WantedRideDAO wantedRideDAO;
 
     @Autowired
-    public UserDAOHiberImpl(EntityManager entityManager, ActivationCodeDAO activationCodeDAO) {
+    public UserDAOHiberImpl(EntityManager entityManager, ActivationCodeDAO activationCodeDAO, WantedRideDAO wantedRideDAO) {
         this.entityManager = entityManager;
         this.activationCodeDAO = activationCodeDAO;
+        this.wantedRideDAO = wantedRideDAO;
     }
 
     // Request number 1
@@ -173,5 +181,59 @@ public class UserDAOHiberImpl implements UserDAO {
         } else {
             return new Response(false, "Email already taken");
         }
+    }
+
+    @Override
+    public UserStatistics requestUserStatistics(int userID) {
+        UserStatistics userStatistics = new UserStatistics();
+        Session session = entityManager.unwrap(Session.class);
+
+        List<OfferedRide> listOfAllOfferedRides = session.createQuery("from OfferedRide", OfferedRide.class).getResultList();
+        List<OfferedRide> listOfOfferedRideBySpecificUser = new ArrayList<>();
+        for (OfferedRide off:
+                listOfAllOfferedRides) {
+            if(off.getUser().getId_user() == userID){
+                listOfOfferedRideBySpecificUser.add(off);
+            }
+        }
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        Date date2 = Date.valueOf(date.toString());
+        Time time = new Time(System.currentTimeMillis());
+        Time time2 = Time.valueOf(time.toString());
+        int numberOfOfferedRidesWithPassengers = 0;
+        int numberOfPassengers = 0;
+        for (OfferedRide off: listOfOfferedRideBySpecificUser) {
+            if(off.getListOfSeats() != null){
+                if(!off.getListOfSeats().isEmpty()){
+                    numberOfPassengers += off.getListOfSeats().size();
+                    int resultOfComparision = off.getDate_of_ride().compareTo(date2);
+                    if(resultOfComparision == -1){
+                        numberOfOfferedRidesWithPassengers++;
+                    } else if (resultOfComparision == 0){
+                        if(off.getTime_of_ride().compareTo(time2) == -1){
+                            numberOfOfferedRidesWithPassengers++;
+                        }
+                    }
+                }
+            }
+        }
+        userStatistics.setOfferedRides(numberOfOfferedRidesWithPassengers);
+        userStatistics.setPassengersTransported(numberOfPassengers);
+        List<WantedRide> listOfWantedRideBySpecificUser = wantedRideDAO.findWantedRidesOfSpecificUser(userID);
+        int numberOfRidesAsPassenger = 0;
+        for (WantedRide wantedRide: listOfWantedRideBySpecificUser) {
+            if(wantedRide.getId_user_driver() != null){
+                int resultOfComparision = wantedRide.getDate_of_ride().compareTo(date2);
+                if(resultOfComparision == -1){
+                    numberOfRidesAsPassenger++;
+                } else if (resultOfComparision == 0){
+                    if(wantedRide.getTime_of_ride().compareTo(time2) == -1){
+                        numberOfRidesAsPassenger++;
+                    }
+                }
+            }
+        }
+        userStatistics.setRidesAsPassenger(numberOfRidesAsPassenger);
+        return userStatistics;
     }
 }

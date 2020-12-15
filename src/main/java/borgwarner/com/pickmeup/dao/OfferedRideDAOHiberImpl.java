@@ -27,6 +27,10 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
         this.userDAO = userDAO;
     }
 
+    public OfferedRideDAOHiberImpl(){
+
+    }
+
     private boolean isRideAfterTimeParameter(OfferedRide offeredRide, String timeParam) {
         Time time = Time.valueOf(timeParam);
         if (offeredRide.getTime_of_ride().compareTo(time) >= 0) {
@@ -199,27 +203,5 @@ public class OfferedRideDAOHiberImpl implements OfferedRideDAO {
             }
         }
         return listOfOfferedRidesOfSpecificUser;
-    }
-
-    @Override
-    public List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(int userID) {
-        List<OfferedRide> listOfOfferedRideBySpecificUser = getListOfOfferedRidesOfSpecificUser(userID);
-        List<OfferedRide> listOfAlreadyDoneOfferedRides = new ArrayList<>();
-        Date date = new java.sql.Date(System.currentTimeMillis());
-        Date date2 = Date.valueOf(date.toString());
-        Time time = new Time(System.currentTimeMillis());
-        Time time2 = Time.valueOf(time.toString());
-        for (OfferedRide off:
-             listOfOfferedRideBySpecificUser) {
-            int resultOfComparision = off.getDate_of_ride().compareTo(date2);
-            if(resultOfComparision == -1){
-                listOfAlreadyDoneOfferedRides.add(off);
-            } else if (resultOfComparision == 0){
-                if(off.getTime_of_ride().compareTo(time2) == -1){
-                    listOfAlreadyDoneOfferedRides.add(off);
-                }
-            }
-        }
-        return listOfAlreadyDoneOfferedRides;
     }
 }

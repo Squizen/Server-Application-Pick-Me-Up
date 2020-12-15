@@ -2,6 +2,7 @@ package borgwarner.com.pickmeup.service;
 
 import borgwarner.com.pickmeup.entity.User;
 import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserStatistics;
 import borgwarner.com.pickmeup.support.UserSupport;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface UserService {
     User loginToApplication(String email, String password);
 
     Response checkIfEmailIsAvailable(String email);
+
+    UserStatistics requestUserStatistics(int userID);
 
 }

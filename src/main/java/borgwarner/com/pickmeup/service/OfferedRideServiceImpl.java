@@ -67,10 +67,4 @@ public class OfferedRideServiceImpl implements OfferedRideService {
     public List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int theID) {
         return offeredRideDAO.getListOfOfferedRidesOfSpecificUser(theID);
     }
-
-    @Override
-    @Transactional
-    public List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(int theID) {
-        return offeredRideDAO.getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(theID);
-    }
 }

@@ -24,7 +24,4 @@ public interface OfferedRideDAO {
 
     List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int userID);
 
-    List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(int userID);
-
-
 }
