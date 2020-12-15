@@ -205,13 +205,14 @@ public class UserDAOHiberImpl implements UserDAO {
         for (OfferedRide off: listOfOfferedRideBySpecificUser) {
             if(off.getListOfSeats() != null){
                 if(!off.getListOfSeats().isEmpty()){
-                    numberOfPassengers += off.getListOfSeats().size();
                     int resultOfComparision = off.getDate_of_ride().compareTo(date2);
                     if(resultOfComparision == -1){
                         numberOfOfferedRidesWithPassengers++;
+                        numberOfPassengers += off.getListOfSeats().size();
                     } else if (resultOfComparision == 0){
                         if(off.getTime_of_ride().compareTo(time2) == -1){
                             numberOfOfferedRidesWithPassengers++;
+                            numberOfPassengers += off.getListOfSeats().size();
                         }
                     }
                 }
