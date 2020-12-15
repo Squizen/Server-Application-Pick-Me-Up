@@ -24,5 +24,4 @@ public interface OfferedRideService {
 
     List<OfferedRide> getListOfOfferedRidesOfSpecificUser(int theID);
 
-    List<OfferedRide> getListOfOfferedRidesOfSpecificUserBeforeCurrentMoment(int theID);
 }

@@ -3,6 +3,7 @@ package borgwarner.com.pickmeup.restcontroller;
 import borgwarner.com.pickmeup.entity.User;
 import borgwarner.com.pickmeup.jsonhelper.View;
 import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserStatistics;
 import borgwarner.com.pickmeup.support.UserSupport;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,8 @@ public class UserRestController {
     public Response checkIfEmailIsAvailable(@RequestParam String email){
         return userService.checkIfEmailIsAvailable(email);
     }
-
+    @GetMapping("/stats/user/{userID}")
+    public UserStatistics requestUserStatistics(@PathVariable int userID){
+        return userService.requestUserStatistics(userID);
+    }
 }

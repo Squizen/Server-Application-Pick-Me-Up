@@ -217,4 +217,39 @@ public class WantedRideDAOHiberImpl implements WantedRideDAO {
         }
         return listOfWantedRidesAfterDateTimeParam;
     }
+
+    @Override
+    public Response addDriverToExistingWantedRide(int id_wanted_ride, int id_driver) {
+        Session session = entityManager.unwrap(Session.class);
+        WantedRide wantedRide;
+        try{
+            wantedRide = session.get(WantedRide.class, id_wanted_ride);
+            User user = session.get(User.class, id_driver);
+            wantedRide.setId_user_driver(user);
+            session.saveOrUpdate(wantedRide);
+        }catch(NoResultException nre){
+            throw new RuntimeException("No result found");
+        }
+        return new Response(true, "Driver has been successfuly added");
+    }
+
+    @Override
+    public Response deleteDriverOfExistingWantedRide(int id_wanted_ride, int id_driver) {
+        Session session = entityManager.unwrap(Session.class);
+        WantedRide wantedRide;
+        try{
+            wantedRide = session.get(WantedRide.class, id_wanted_ride);
+            if(wantedRide.getId_user_driver() != null){
+                if(wantedRide.getId_user_driver().getId_user() == id_driver){
+                    wantedRide.setId_user_driver(null);
+                } else {
+                    return new Response(false, "You cannot delete diffrent Driver");
+                }
+            }
+            session.saveOrUpdate(wantedRide);
+        }catch(NoResultException nre){
+            throw new RuntimeException("No result found");
+        }
+        return new Response(true, "Driver has been successfuly deleted");
+    }
 }

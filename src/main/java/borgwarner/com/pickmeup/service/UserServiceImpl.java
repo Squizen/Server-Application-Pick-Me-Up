@@ -3,6 +3,7 @@ package borgwarner.com.pickmeup.service;
 import borgwarner.com.pickmeup.dao.UserDAO;
 import borgwarner.com.pickmeup.entity.User;
 import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserStatistics;
 import borgwarner.com.pickmeup.support.UserSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,5 +72,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Response checkIfEmailIsAvailable(String email) {
         return userDAO.checkIfEmailIsAvailable(email);
+    }
+
+    @Override
+    @Transactional
+    public UserStatistics requestUserStatistics(int userID) {
+        return userDAO.requestUserStatistics(userID);
     }
 }

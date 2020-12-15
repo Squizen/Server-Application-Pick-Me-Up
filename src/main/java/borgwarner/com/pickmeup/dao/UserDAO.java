@@ -1,6 +1,7 @@
 package borgwarner.com.pickmeup.dao;
 
 import borgwarner.com.pickmeup.support.Response;
+import borgwarner.com.pickmeup.support.UserStatistics;
 import borgwarner.com.pickmeup.support.UserSupport;
 import borgwarner.com.pickmeup.entity.User;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface UserDAO {
     User loginToApplication(String email, String password);
 
     Response checkIfEmailIsAvailable(String email);
+
+    UserStatistics requestUserStatistics(int userID);
 }

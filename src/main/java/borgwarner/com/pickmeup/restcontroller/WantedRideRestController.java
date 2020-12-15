@@ -67,4 +67,15 @@ public class WantedRideRestController {
     public List<WantedRide> findWantedRidesFromCompany(@RequestParam String to_where, @RequestParam String startingDay, @RequestParam String startingMoment){
         return wantedRideService.findWantedRidesFromCompany(to_where, startingDay, startingMoment);
     }
+    @PutMapping("/wanted_rides/add_driver")
+    @ResponseBody
+    public Response addDriverToExistingWantedRide(@RequestParam int id_wanted_ride, @RequestParam int id_driver){
+        return wantedRideService.addDriverToExistingWantedRide(id_wanted_ride, id_driver);
+    }
+
+    @PutMapping("/wanted_rides/delete_driver")
+    @ResponseBody
+    public Response deleteDriverOfExistingWantedRide(@RequestParam int id_wanted_ride, @RequestParam int id_driver){
+        return wantedRideService.deleteDriverOfExistingWantedRide(id_wanted_ride, id_driver);
+    }
 }

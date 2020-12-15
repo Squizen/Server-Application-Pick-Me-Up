@@ -67,4 +67,15 @@ public class WantedRideServiceImpl implements WantedRideService {
     public List<WantedRide> findWantedRidesFromCompany(String to_where, String startingDay, String startingMoment) {
         return wantedRideDAO.findWantedRidesFromCompany(to_where, startingDay, startingMoment);
     }
+
+    @Override
+    @Transactional
+    public Response addDriverToExistingWantedRide(int id_wanted_ride, int id_driver) {
+        return wantedRideDAO.addDriverToExistingWantedRide(id_wanted_ride, id_driver);
+    }
+    @Override
+    @Transactional
+    public Response deleteDriverOfExistingWantedRide(int id_wanted_ride, int id_driver) {
+        return wantedRideDAO.deleteDriverOfExistingWantedRide(id_wanted_ride, id_driver);
+    }
 }

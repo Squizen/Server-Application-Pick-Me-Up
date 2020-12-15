@@ -23,4 +23,8 @@ public interface WantedRideDAO {
     List<WantedRide> findWantedRidesToCompany(String from_where, String startingDay, String startingMoment);
 
     List<WantedRide> findWantedRidesFromCompany(String to_where, String startingDay, String startingMoment);
+
+    Response addDriverToExistingWantedRide(int id_wanted_ride, int id_driver);
+
+    Response deleteDriverOfExistingWantedRide(int id_wanted_ride, int id_driver);
 }
