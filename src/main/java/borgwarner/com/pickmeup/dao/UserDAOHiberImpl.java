@@ -218,6 +218,9 @@ public class UserDAOHiberImpl implements UserDAO {
                 }
             }
         }
+
+        // sialala
+        
         userStatistics.setOfferedRides(numberOfOfferedRidesWithPassengers);
         userStatistics.setPassengersTransported(numberOfPassengers);
         List<WantedRide> listOfWantedRideBySpecificUser = wantedRideDAO.findWantedRidesOfSpecificUser(userID);
